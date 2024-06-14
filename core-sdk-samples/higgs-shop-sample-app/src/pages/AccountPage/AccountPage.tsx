@@ -24,6 +24,7 @@ const AccountPage = () => {
         // that simply returns a user object if the login was 'successful'
         // Our Sample App does not authenticate or authorize a user, and we
         // do not handle passwords.
+
         const myUser = login(username);
 
         const { email, customerid } = myUser;
@@ -49,6 +50,11 @@ const AccountPage = () => {
         };
 
         mParticle.Identity.login(identityRequest, identityCallback);
+        mParticle.logEvent(
+            'User Login', // eventName
+            mParticle.EventType.UserLogin, // eventType
+            {}, // eventInfo
+        );
     };
 
     const handleLogout = () => {
@@ -68,6 +74,7 @@ const AccountPage = () => {
         // As an example, we are formally logging the user out seperately from
         // any mParticle logging actions
         logout();
+        mParticle.logEvent('User Logout', mParticle.EventType.UserLogout);
     };
 
     const renderAccountView = () => {
